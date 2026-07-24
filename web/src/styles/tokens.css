@@ -1,0 +1,25 @@
+:root{
+  --bg-page: #EDEAF5;
+  --ink: #1B1B23;
+  --ink-soft: #6B6B78;
+  --card-white: #FFFFFF;
+
+  --skills-1:#0F2027;  --skills-2:#3A1C71;  --skills-glow:#4DE8C9;
+  --edu-1:#031B33;     --edu-2:#1E6FA8;     --edu-glow:#7FD8FF;
+  --exp-1:#2B0B3F;     --exp-2:#C2410C;     --exp-glow:#FF7A59;
+  --ref-1:#032A24;     --ref-2:#0FA36B;     --ref-glow:#5CF2C1;
+  --vol-1:#330A1F;     --vol-2:#E1336B;     --vol-glow:#FF9BB8;
+  --proj-1:#0B0F33;    --proj-2:#3D5CFF;    --proj-glow:#8FA6FF;
+  --lang-1:#2B0B36;    --lang-2:#F5A623;    --lang-glow:#FFD37A;
+
+  --chat-1:#DCD3F7; --chat-2:#B9C6F5; --chat-3:#E9CFF0;
+
+  --fact1-1:#D8CDFB; --fact1-2:#7C6FE0;
+  --fact2-1:#DFF5B0; --fact2-2:#7CC64A;
+  --fact3-1:#FFDCC7; --fact3-2:#FF7A54;
+  --fact4-1:#C9E8FF; --fact4-2:#3D9DE0;
+  --fact5-1:#FFD3E6; --fact5-2:#E85A9E;
+
+  --game-1:#1A0B3D; --game-2:#C21E92; --game-glow:#FF6FD8;
+  --p1-accent:#0FA36B; --p2-accent:#C2410C; --p3-accent:#E1336B; --p4-accent:#1E6FA8;
+}

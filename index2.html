@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Portfolio — iOS Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-page: #EDEAF5;
+    --ink: #1B1B23;
+    --ink-soft: #6B6B78;
+    --card-white: #FFFFFF;
+
+    --skills-1:#0F2027;  --skills-2:#3A1C71;  --skills-glow:#4DE8C9;
+    --edu-1:#031B33;     --edu-2:#1E6FA8;     --edu-glow:#7FD8FF;
+    --exp-1:#2B0B3F;     --exp-2:#C2410C;     --exp-glow:#FF7A59;
+    --ref-1:#032A24;     --ref-2:#0FA36B;     --ref-glow:#5CF2C1;
+    --vol-1:#330A1F;     --vol-2:#E1336B;     --vol-glow:#FF9BB8;
+    --proj-1:#0B0F33;    --proj-2:#3D5CFF;    --proj-glow:#8FA6FF;
+    --lang-1:#2B0B36;    --lang-2:#F5A623;    --lang-glow:#FFD37A;
+
+    --chat-1:#DCD3F7; --chat-2:#B9C6F5; --chat-3:#E9CFF0;
+
+    --fact1-1:#D8CDFB; --fact1-2:#7C6FE0;  /* lavender → violet-blue, mood-card inspired */
+    --fact2-1:#DFF5B0; --fact2-2:#7CC64A;  /* mint → green, Duolingo word-of-day inspired */
+    --fact3-1:#FFDCC7; --fact3-2:#FF7A54;  /* peach → coral, health-app breakfast inspired */
+    --fact4-1:#C9E8FF; --fact4-2:#3D9DE0;  /* sky → azure, Duolingo "Breath" inspired */
+    --fact5-1:#FFD3E6; --fact5-2:#E85A9E;  /* blush → rose, mood-card pink inspired */
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{
+    background:#DAD6E8;
+    font-family:-apple-system, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+    display:flex; align-items:center; justify-content:center;
+    min-height:100vh;
+  }
+
+  .device{
+    position:relative;
+    width:390px; height:844px;
+    background:#0A0A0C;
+    border-radius:62px;
+    padding:14px;
+    box-shadow: 0 40px 80px rgba(20,15,40,0.35), 0 2px 0 rgba(255,255,255,0.04) inset;
+  }
+  .screen{
+    position:relative;
+    width:100%; height:100%;
+    background:
+      radial-gradient(120% 60% at 15% 0%, #F3EEFB 0%, transparent 55%),
+      radial-gradient(100% 50% at 100% 0%, #ECE6FA 0%, transparent 60%),
+      var(--bg-page);
+    border-radius:48px;
+    overflow:hidden;
+  }
+  .island{
+    position:absolute; top:14px; left:50%; transform:translateX(-50%);
+    width:120px; height:34px; background:#0A0A0C; border-radius:20px; z-index:50;
+  }
+
+  .statusbar{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:18px 30px 6px 30px;
+    font-size:15px; font-weight:600; color:var(--ink);
+  }
+  .statusbar .icons{ display:flex; gap:6px; align-items:center; }
+
+  .content{
+    padding: 6px 20px 28px 20px;
+    height:calc(100% - 46px);
+    overflow-y:auto;
+  }
+  .content::-webkit-scrollbar{ display:none; }
+
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:6px 4px 18px 4px;
+  }
+  .greeting .eyebrow{
+    font-size:12.5px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .greeting h1{
+    font-size:26px; font-weight:700; color:var(--ink); letter-spacing:-0.01em; margin-top:2px;
+  }
+  .avatar{
+    width:42px; height:42px; border-radius:14px;
+    background:linear-gradient(135deg,#8A5CFF,#4DE8C9);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700; color:#fff; font-size:15px;
+    box-shadow:0 6px 14px rgba(90,60,200,0.28);
+  }
+
+  /* ---- Chat hero widget ---- */
+  .chat-widget{
+    position:relative;
+    border-radius:32px;
+    padding:24px 22px 22px 22px;
+    background:
+      radial-gradient(120% 100% at 0% 0%, #F4E9FB 0%, transparent 55%),
+      radial-gradient(120% 100% at 100% 100%, #C9D3F8 0%, transparent 60%),
+      linear-gradient(135deg, var(--chat-1), var(--chat-2) 55%, var(--chat-3));
+    overflow:hidden;
+    box-shadow:0 18px 30px rgba(90,80,160,0.18);
+    margin-bottom:16px;
+  }
+  .chat-widget .row-top{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:14px;
+  }
+  .chat-tag{
+    font-size:12.5px; font-weight:600; color:#4B4470; letter-spacing:0.02em;
+  }
+  .chat-bubble-icon{
+    width:34px; height:34px; border-radius:11px;
+    background:rgba(255,255,255,0.55);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .chat-widget h2{
+    font-size:25px; line-height:1.22; font-weight:700; color:#211F3A;
+    letter-spacing:-0.01em;
+    max-width:250px;
+    margin-bottom:16px;
+  }
+  .chat-preview{
+    background:rgba(255,255,255,0.55);
+    border-radius:16px;
+    padding:10px 14px;
+    font-size:13.5px;
+    color:#4B4470;
+    margin-bottom:16px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .chat-preview .dot{ width:6px; height:6px; border-radius:50%; background:#8A5CFF; flex:none; }
+  .chat-cta{
+    display:inline-flex; align-items:center; gap:8px;
+    background:#211F3A; color:#fff;
+    font-size:14.5px; font-weight:600;
+    padding:12px 20px; border-radius:100px;
+  }
+  .chat-cta svg{ width:14px; height:14px; }
+
+  /* ---- Section label ---- */
+  .section-label{
+    font-size:12.5px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:6px 4px 12px 4px;
+  }
+
+  /* ---- Widget grid ---- */
+  .grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:14px;
+  }
+  .widget{
+    position:relative;
+    border-radius:26px;
+    padding:16px;
+    min-height:140px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    overflow:hidden;
+    box-shadow:0 12px 22px rgba(30,20,60,0.16);
+  }
+  .widget .mesh{
+    position:absolute; inset:0;
+  }
+  .widget .glyph{
+    position:relative; z-index:2;
+    width:38px; height:38px;
+  }
+  .widget .meta{ position:relative; z-index:2; }
+  .widget .label{
+    font-size:14.5px; font-weight:700; color:#fff; letter-spacing:-0.005em;
+  }
+  .widget .stat{
+    font-size:12px; font-weight:500; color:rgba(255,255,255,0.78); margin-top:2px;
+  }
+  .widget.wide{ grid-column: span 2; flex-direction:row; align-items:center; min-height:96px; }
+  .widget.wide .glyph{ margin-right:14px; }
+  .widget.wide .meta{ display:flex; flex-direction:column; }
+
+  .home-indicator{
+    position:absolute; bottom:9px; left:50%; transform:translateX(-50%);
+    width:134px; height:5px; border-radius:3px; background:rgba(20,15,35,0.55);
+  }
+
+  svg{ display:block; }
+</style>
+</head>
+<body>
+
+<div class="device">
+  <div class="screen">
+    <div class="island"></div>
+
+    <div class="statusbar">
+      <span>9:41</span>
+      <div class="icons">
+        <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><rect x="0" y="7" width="3" height="5" rx="1" fill="#1B1B23"/><rect x="5" y="4.5" width="3" height="7.5" rx="1" fill="#1B1B23"/><rect x="10" y="2" width="3" height="10" rx="1" fill="#1B1B23"/><rect x="15" y="0" width="3" height="12" rx="1" fill="#1B1B23"/></svg>
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 10.5C8.9 10.5 9.7 10.15 10.3 9.55L8 7.25L5.7 9.55C6.3 10.15 7.1 10.5 8 10.5Z" fill="#1B1B23"/><path d="M4 6.9C5 5.9 6.45 5.3 8 5.3C9.55 5.3 11 5.9 12 6.9L10.6 8.3C10 7.7 9 7.3 8 7.3C7 7.3 6 7.7 5.4 8.3L4 6.9Z" fill="#1B1B23"/><path d="M1 3.9C2.7 2.2 5.2 1.2 8 1.2C10.8 1.2 13.3 2.2 15 3.9L13.6 5.3C12.2 3.9 10.2 3.2 8 3.2C5.8 3.2 3.8 3.9 2.4 5.3L1 3.9Z" fill="#1B1B23"/></svg>
+        <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.75" y="0.75" width="20.5" height="10.5" rx="2.75" stroke="#1B1B23" stroke-opacity="0.4" stroke-width="1"/><rect x="2" y="2" width="16" height="8" rx="1.5" fill="#1B1B23"/><rect x="22.5" y="4" width="1.6" height="4" rx="0.8" fill="#1B1B23" fill-opacity="0.4"/></svg>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <div class="topbar">
+        <div class="greeting">
+          <div class="eyebrow" data-en="Good afternoon" data-ar="مساء الخير">Good afternoon</div>
+          <h1 data-en="You" data-ar="أنت">You</h1>
+        </div>
+        <div class="lang-toggle" id="langToggle" onclick="toggleLang()">
+          <span class="lt-en active">EN</span><span class="lt-ar">ع</span>
+        </div>
+      </div>
+
+      <!-- Chat widget -->
+      <div class="chat-widget" onclick="openApp('app-chatbot')">
+        <div class="row-top">
+          <span class="chat-tag" data-en="Portfolio Assistant" data-ar="مساعد المعرض">Portfolio Assistant</span>
+          <div class="chat-bubble-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 5.5C4 4.67 4.67 4 5.5 4h13c.83 0 1.5.67 1.5 1.5v9c0 .83-.67 1.5-1.5 1.5H10l-4.2 3.3c-.53.42-1.3.04-1.3-.63V15.9c-.28-.24-.5-.6-.5-1V5.5Z" fill="#4B4470"/></svg>
+          </div>
+        </div>
+        <h2 data-en="Ask me anything about my work" data-ar="اسألني أي شيء عن عملي">Ask me anything about my work</h2>
+        <div class="chat-preview">
+          <span class="dot"></span>
+          <span data-en='"What did you build at your last role?"' data-ar='"ماذا بنيت في وظيفتك الأخيرة؟"'>"What did you build at your last role?"</span>
+        </div>
+        <div class="chat-cta">
+          <span data-en="Start chat" data-ar="ابدأ المحادثة">Start chat</span>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+      <!-- Fun Facts About Lara (moved under Assistant) -->
+      <div class="section-label" style="margin-top:2px;" data-en="Fun facts about Lara" data-ar="حقائق ممتعة عن لارا">Fun facts about Lara</div>
+      <div class="fact-stack" id="factStack">
+        <div class="fact-card" data-i="0" style="background:var(--fact1-2)">
+          <div class="fact-eyebrow" data-en="Favorite World Cup Team?" data-ar="فريق كأس العالم المفضل؟">Favorite World Cup Team?</div>
+          <div class="fact-body" data-en="🇪🇸 Spain!" data-ar="🇪🇸 إسبانيا!">🇪🇸 Spain!</div>
+          <div class="fact-arrow" onclick="event.stopPropagation(); advanceFacts();"><svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="fact-card" data-i="1" style="background:var(--fact2-2)">
+          <div class="fact-eyebrow" data-en="My biggest weakness?" data-ar="أكبر نقطة ضعف لدي؟">My biggest weakness?</div>
+          <div class="fact-body" data-en="Design 😭 I'm trying to become a better designer every day." data-ar="التصميم 😭 أحاول أن أصبح مصممًا أفضل كل يوم.">Design 😭 I'm trying to become a better designer every day.</div>
+          <div class="fact-arrow" onclick="event.stopPropagation(); advanceFacts();"><svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="fact-card" data-i="2" style="background:var(--fact3-2)">
+          <div class="fact-eyebrow" data-en="Where do I see myself in five years?" data-ar="أين أرى نفسي بعد خمس سنوات؟">Where do I see myself in five years?</div>
+          <div class="fact-body" data-en="Working in YOUR company. So... accept me 😄" data-ar="أعمل في شركتك. لذا... اقبلني 😄">Working in YOUR company. So... accept me 😄</div>
+          <div class="fact-arrow" onclick="event.stopPropagation(); advanceFacts();"><svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="fact-card" data-i="3" style="background:var(--fact4-2)">
+          <div class="fact-eyebrow" data-en="What do I think you should do?" data-ar="ما الذي أعتقد أنه يجب عليك فعله؟">What do I think you should do?</div>
+          <div class="fact-body" data-en="Interview me 😉" data-ar="قابلني 😉">Interview me 😉</div>
+          <div class="fact-cta" onclick="event.stopPropagation(); openApp('app-meet');" data-en="📅 Schedule Interview" data-ar="📅 حدد موعد مقابلة">📅 Schedule Interview</div>
+          <div class="fact-arrow" onclick="event.stopPropagation(); advanceFacts();"><svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="fact-card" data-i="4" style="background:var(--fact5-2)">
+          <div class="fact-eyebrow" data-en="Random fact" data-ar="حقيقة عشوائية">Random fact</div>
+          <div class="fact-body" data-en="I genuinely enjoy building products people actually use." data-ar="أستمتع حقًا ببناء منتجات يستخدمها الناس فعلاً.">I genuinely enjoy building products people actually use.</div>
+          <div class="fact-arrow" onclick="event.stopPropagation(); advanceFacts();"><svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+
+      <!-- Book a Meeting button (new) -->
+      <div class="meeting-cta-btn" onclick="openApp('app-meet')" data-en="📅 Book a Meeting with Lara!" data-ar="📅 احجز اجتماعًا مع لارا!">📅 Book a Meeting with Lara!</div>
+
+      <!-- Explore carousel (new) -->
+      <div class="section-label" style="margin-top:22px;" data-en="Explore" data-ar="استكشف">Explore</div>
+      <div class="explore-row">
+        <div class="explore-card fade-in" onclick="openApp('app-summary')" style="background:linear-gradient(135deg,var(--skills-1),var(--skills-2))">
+          <svg class="e-glyph" viewBox="0 0 100 100" fill="none"><rect x="20" y="24" width="60" height="52" rx="8" fill="#fff" opacity=".92"/><rect x="30" y="38" width="40" height="6" rx="3" fill="var(--skills-2)"/><rect x="30" y="52" width="26" height="6" rx="3" fill="var(--skills-2)"/></svg>
+          <span data-en="Summary" data-ar="ملخص">Summary</span>
+        </div>
+        <div class="explore-card fade-in" onclick="openApp('app-education')" style="background:linear-gradient(135deg,var(--edu-1),var(--edu-2))">
+          <svg class="e-glyph" viewBox="0 0 100 100" fill="none"><path d="M50 28 L82 42 L50 56 L18 42Z" fill="#fff"/></svg>
+          <span data-en="Education" data-ar="التعليم">Education</span>
+        </div>
+        <div class="explore-card fade-in" onclick="openApp('app-experience')" style="background:linear-gradient(135deg,var(--exp-1),var(--exp-2))">
+          <svg class="e-glyph" viewBox="0 0 100 100" fill="none"><path d="M22 66 L40 54 L56 62 L78 36" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="78" cy="36" r="8" fill="#fff"/></svg>
+          <span data-en="Experience" data-ar="الخبرة">Experience</span>
+        </div>
+        <div class="explore-card fade-in" onclick="openApp('app-skills')" style="background:linear-gradient(135deg,var(--ref-1),var(--ref-2))">
+          <svg class="e-glyph" viewBox="0 0 100 100" fill="none"><path d="M50 20c2 20 10 28 30 30-20 2-28 10-30 30-2-20-10-28-30-30 20-2 28-10 30-30Z" fill="#fff"/></svg>
+          <span data-en="Skills" data-ar="المهارات">Skills</span>
+        </div>
+        <div class="explore-card fade-in" onclick="openApp('app-projects')" style="background:linear-gradient(135deg,var(--proj-1),var(--proj-2))">
+          <svg class="e-glyph" viewBox="0 0 100 100" fill="none"><rect fill="#fff" opacity=".55" x="26" y="44" width="42" height="28" rx="5"/><rect fill="#fff" x="16" y="26" width="42" height="28" rx="5"/></svg>
+          <span data-en="Projects" data-ar="مشاريع">Projects</span>
+        </div>
+        <div class="explore-card fade-in" onclick="openApp('app-volunteering')" style="background:linear-gradient(135deg,var(--vol-1),var(--vol-2))">
+          <svg class="e-glyph" viewBox="0 0 100 100" fill="none"><path d="M50 58c-8-8-18-14-18-24 0-6 5-10 10-10 4 0 7 2 8 5 1-3 4-5 8-5 5 0 10 4 10 10 0 10-10 16-18 24Z" fill="#fff"/></svg>
+          <span data-en="Volunteering" data-ar="تطوع">Volunteering</span>
+        </div>
+        <div class="explore-card fade-in" onclick="openApp('app-referrals')" style="background:linear-gradient(135deg,var(--ref-1),var(--ref-2))">
+          <svg class="e-glyph" viewBox="0 0 100 100" fill="none"><circle cx="30" cy="38" r="12" fill="#fff"/><path d="M12 74c0-14 10-22 18-22s18 8 18 22Z" fill="#fff"/><circle cx="70" cy="54" r="12" fill="#fff" opacity="0.96"/><path d="M52 78c0-12 8-18 18-18s18 6 18 18Z" fill="#fff" opacity="0.96"/></svg>
+          <span data-en="Recommendations" data-ar="توصيات">Recommendations</span>
+        </div>
+        <div class="explore-card fade-in" onclick="openApp('app-game')" style="background:linear-gradient(135deg,var(--game-1),var(--game-2))">
+          <svg class="e-glyph" viewBox="0 0 100 100" fill="none"><rect x="18" y="18" width="64" height="64" rx="16" fill="none" stroke="#fff" stroke-width="8"/><circle cx="34" cy="34" r="6.5" fill="#fff"/><circle cx="50" cy="50" r="6.5" fill="#fff"/><circle cx="66" cy="66" r="6.5" fill="#fff"/></svg>
+          <span data-en="Quick Match" data-ar="مباراة سريعة">Quick Match</span>
+        </div>
+        <div class="explore-card fade-in" onclick="openApp('app-meet')" style="background:linear-gradient(135deg,#4285F4,#34A853)">
+          <svg class="e-glyph" viewBox="0 0 100 100" fill="none"><rect x="14" y="30" width="52" height="40" rx="10" fill="#fff"/><path d="M70 42 L88 30 L88 70 L70 58Z" fill="#fff"/></svg>
+          <span data-en="Meet Lara" data-ar="اجتماع مع لارا">Meet Lara</span>
+        </div>
+        <div class="explore-card fade-in" onclick="openApp('app-languages')" style="background:linear-gradient(135deg,var(--lang-1),var(--lang-2))">
+          <svg class="e-glyph" viewBox="0 0 100 100" fill="none"><path d="M40 18h46a8 8 0 0 1 8 8v30a8 8 0 0 1-8 8h-8v10l-13-10h-25a8 8 0 0 1-8-8V26a8 8 0 0 1 8-8Z" fill="#fff"/></svg>
+          <span data-en="Languages" data-ar="لغات">Languages</span>
+        </div>
+        <div class="explore-card fade-in" onclick="openApp('app-leadership')" style="background:linear-gradient(135deg,#5B3DE0,#8A5CFF)">
+          <svg class="e-glyph" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="34" r="14" fill="#fff"/><path d="M22 78c0-18 12-30 28-30s28 12 28 30" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"/></svg>
+          <span data-en="Leadership" data-ar="القيادة">Leadership</span>
+        </div>
+        <div class="explore-card fade-in" onclick="openApp('app-certifications')" style="background:linear-gradient(135deg,var(--lang-1),var(--lang-2))">
+          <svg class="e-glyph" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="40" r="22" fill="#fff"/><path d="M38 58 L30 82 L50 72 L70 82 L62 58" fill="#fff"/></svg>
+          <span data-en="Certifications" data-ar="الشهادات">Certifications</span>
+        </div>
+        <div class="explore-card fade-in" onclick="openApp('app-awards')" style="background:linear-gradient(135deg,#5B3DE0,#8A5CFF)">
+          <svg class="e-glyph" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="38" r="20" fill="#fff"/><path d="M36 56 L28 84 L50 72 L72 84 L64 56" fill="#fff"/></svg>
+          <span data-en="Awards" data-ar="الجوائز">Awards</span>
+        </div>
+        <div class="explore-card fade-in" onclick="openApp('app-contact')" style="background:linear-gradient(135deg,#0FA36B,#4DE8C9)">
+          <svg class="e-glyph" viewBox="0 0 100 100" fill="none"><rect x="18" y="26" width="64" height="48" rx="8" fill="#fff"/><path d="M22 30 L50 52 L78 30" fill="none" stroke="var(--ref-2)" stroke-width="5"/></svg>
+          <span data-en="Contact" data-ar="تواصل">Contact</span>
+        </div>
+      </div>
+
+      <!-- Book a Meeting Preview (new) — reuses the real Meet Lara calendar components -->
+      <div class="section-label" style="margin-top:22px;" data-en="Book time with Lara" data-ar="احجز وقتًا مع لارا">Book time with Lara</div>
+      <div class="meet-preview-card fade-in">
+        <div class="mp-text" data-en="Have a few minutes? Grab a slot on Lara's calendar and let's talk." data-ar="لديك بضع دقائق؟ احجز موعدًا في تقويم لارا ولنتحدث.">Have a few minutes? Grab a slot on Lara's calendar and let's talk.</div>
+        <div class="date-row" style="padding:0 0 14px 0;">
+          <div class="date-chip"><div class="d-num">27</div><div class="d-day">Mon</div></div>
+          <div class="date-chip active"><div class="d-num">28</div><div class="d-day">Tue</div></div>
+          <div class="date-chip"><div class="d-num">29</div><div class="d-day">Wed</div></div>
+          <div class="date-chip"><div class="d-num">30</div><div class="d-day">Thu</div></div>
+        </div>
+        <div class="time-grid" style="padding:0 0 16px 0;">
+          <div class="time-pill">9:30 AM</div><div class="time-pill active">11:00 AM</div><div class="time-pill">2:00 PM</div>
+        </div>
+        <div class="meet-cta" onclick="openApp('app-meet')" style="margin:0;" data-en="View Full Calendar" data-ar="عرض التقويم الكامل">View Full Calendar</div>
+      </div>
+
+    </div>
+
+    <!-- Floating chat button (new) -->
+    <div class="floating-chat" id="floatingChat" onclick="openApp('app-chatbot')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 5.5C4 4.67 4.67 4 5.5 4h13c.83 0 1.5.67 1.5 1.5v9c0 .83-.67 1.5-1.5 1.5H10l-4.2 3.3c-.53.42-1.3.04-1.3-.63V15.9c-.28-.24-.5-.6-.5-1V5.5Z" fill="#fff"/></svg>
+    </div>
+
+    <div class="home-indicator"></div>
+
+    <!-- =========================================================
+         Everything below this line is new: navigation shell +
+         interior app screens. The home screen above is untouched.
+    ==========================================================-->
+    <style>
+      :root{
+        --game-1:#1A0B3D; --game-2:#C21E92; --game-glow:#FF6FD8;
+        --p1-accent:#0FA36B; --p2-accent:#C2410C; --p3-accent:#E1336B; --p4-accent:#1E6FA8;
+      }
+
+      /* ---- Book a Meeting button ---- */
+      .meeting-cta-btn{
+        display:flex; align-items:center; justify-content:center; gap:8px;
+        background:#211F3A; color:#fff; font-size:14.5px; font-weight:600;
+        padding:15px; border-radius:100px; margin:0 0 20px 0; cursor:pointer;
+        box-shadow:0 12px 22px rgba(30,20,60,0.18);
+        transition:transform .15s ease, box-shadow .15s ease;
+      }
+      .meeting-cta-btn:active{ transform:scale(0.97); box-shadow:0 6px 14px rgba(30,20,60,0.16); }
+
+      /* ---- Fun Facts card stack ---- */
+      .fact-stack{
+        position:relative; height:150px; margin-bottom:20px; cursor:pointer;
+      }
+      .fact-card{
+        position:absolute; inset:0; border-radius:26px; padding:20px 22px;
+        color:#fff; box-shadow:0 14px 26px rgba(30,20,60,0.2);
+        transition:transform .55s cubic-bezier(.34,1.56,.64,1), opacity .45s ease, width .5s cubic-bezier(.34,1.56,.64,1);
+        display:flex; flex-direction:column; justify-content:center;
+      }
+      .fact-eyebrow{ font-size:12.5px; font-weight:700; opacity:.85; margin-bottom:8px; text-shadow:0 1px 4px rgba(0,0,0,0.12); }
+      .fact-body{ font-size:16px; font-weight:700; line-height:1.4; max-width:82%; text-shadow:0 1px 5px rgba(0,0,0,0.12); }
+      .fact-arrow{
+        position:absolute; right:18px; bottom:18px; width:32px; height:32px; border-radius:50%;
+        background:rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center;
+        cursor:pointer; transition:background .2s ease;
+      }
+      .fact-arrow:hover{ background:rgba(255,255,255,0.32); }
+      .fact-arrow svg{ width:14px; height:14px; }
+      .fact-cta{
+        display:inline-flex; align-self:flex-start; margin-top:10px;
+        background:rgba(255,255,255,0.92); color:#211F3A; font-size:12.5px; font-weight:700;
+        padding:8px 14px; border-radius:100px; cursor:pointer;
+      }
+
+      /* ---- Compact / peek variant (used by Summary) ---- */
+      .fact-stack.compact{ margin:0 20px 26px 20px; height:190px; }
+      .fact-card.mini{
+        inset:auto; left:0; right:0; bottom:0; height:120px;
+        color:#fff; box-shadow:0 10px 22px rgba(20,15,40,0.18);
+        border-radius:20px; padding:16px 18px 16px 18px;
+        align-items:flex-start; justify-content:flex-start;
+      }
+      .fact-card.mini .fact-eyebrow{ opacity:0.85; color:#fff; font-size:11.5px; font-weight:700; margin-bottom:8px; }
+      .fact-card.mini .fact-body{ color:#fff; font-size:14.5px; max-width:100%; }
+      .fact-card.mini .fact-arrow{ background:rgba(255,255,255,0.2); right:14px; bottom:14px; width:28px; height:28px; }
+      .fact-card.mini .fact-arrow:hover{ background:rgba(255,255,255,0.32); }
+      .fact-card.mini .fact-arrow svg path{ stroke:#fff; }
+
+      /* ---- Explore carousel ---- */
+      .explore-row{
+        display:flex; gap:12px; overflow-x:auto; padding:2px 2px 10px 2px;
+        scroll-snap-type:x proximity;
+      }
+      .explore-row::-webkit-scrollbar{ display:none; }
+      .explore-card{
+        flex:none; width:96px; height:104px; border-radius:20px; padding:14px 12px;
+        display:flex; flex-direction:column; justify-content:space-between;
+        color:#fff; font-size:12px; font-weight:700; cursor:pointer;
+        box-shadow:0 10px 18px rgba(30,20,60,0.16); scroll-snap-align:start;
+        transition:transform .2s ease, box-shadow .2s ease;
+      }
+      .explore-card:hover{ transform:translateY(-4px); box-shadow:0 16px 26px rgba(30,20,60,0.22); }
+      .explore-card:active{ transform:translateY(-1px) scale(0.98); }
+      .e-glyph{ width:26px; height:26px; }
+
+      /* ---- Book a Meeting preview ---- */
+      .meet-preview-card{ background:#fff; border-radius:22px; padding:18px 20px; box-shadow:0 10px 22px rgba(30,20,60,0.08); }
+      .mp-text{ font-size:13px; color:var(--ink-soft); font-weight:500; line-height:1.5; margin-bottom:14px; }
+
+      .mp-cta{
+        text-align:center; background:#211F3A; color:#fff; font-size:13.5px; font-weight:600;
+        padding:13px; border-radius:100px; cursor:pointer;
+        transition:transform .15s ease;
+      }
+      .mp-cta:active{ transform:scale(0.97); }
+
+      /* ---- Floating chat button ---- */
+      .floating-chat{
+        position:absolute; right:20px; bottom:34px; z-index:60;
+        width:54px; height:54px; border-radius:50%; background:#211F3A;
+        display:flex; align-items:center; justify-content:center; cursor:pointer;
+        box-shadow:0 14px 28px rgba(30,20,60,0.32);
+        animation:floatBob 3.2s ease-in-out infinite;
+      }
+      .floating-chat:active{ transform:scale(0.94); }
+      @keyframes floatBob{
+        0%,100%{ transform:translateY(0); }
+        50%{ transform:translateY(-6px); }
+      }
+
+      /* ---- Fade-in on scroll ---- */
+      .fade-in{ opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease; }
+      .fade-in.in-view{ opacity:1; transform:translateY(0); }
+
+      /* ---- Language toggle ---- */
+      .lang-toggle{ display:flex; background:rgba(20,15,40,0.06); border-radius:100px; padding:3px; cursor:pointer; gap:2px; flex:none; }
+      .lang-toggle span{ font-size:11px; font-weight:700; padding:7px 11px; border-radius:100px; color:var(--ink-soft); transition:background .2s ease,color .2s ease; }
+      .lang-toggle span.active{ background:#211F3A; color:#fff; }
+
+      .content.rtl-mode, .content.rtl-mode *{
+        font-family:'Cairo','Tajawal',-apple-system,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+      }
+      .content.rtl-mode{ direction:rtl; text-align:right; }
+      .content.rtl-mode .row-top,
+      .content.rtl-mode .topbar,
+      .content.rtl-mode .chat-preview,
+      .content.rtl-mode .chat-cta,
+      .content.rtl-mode .hero-cta{ flex-direction:row-reverse; }
+      .info-row{ margin:0 20px 10px 20px; background:#fff; border-radius:18px; padding:14px 16px; box-shadow:0 6px 16px rgba(20,15,40,0.05); }
+      .info-row .i-label{ font-size:11.5px; font-weight:600; color:var(--ink-soft); }
+      .info-row .i-value{ font-size:14px; font-weight:700; color:var(--ink); margin-top:2px; }
+      .app-page{
+        position:absolute; inset:0; z-index:100; background:var(--bg-page);
+        transform:translateY(100%);
+        transition:transform .42s cubic-bezier(.32,.72,0,1);
+        overflow-y:auto;
+      }
+      .app-page::-webkit-scrollbar{ display:none; }
+      .app-page.active{ transform:translateY(0); }
+      .island{ z-index:500; }
+
+      .app-header{ display:flex; align-items:center; justify-content:space-between; padding:64px 20px 8px 20px; }
+      .back-btn{ width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.18); cursor:pointer; flex:none; }
+      .back-btn.on-light{ background:rgba(20,15,40,0.06); }
+      .back-btn svg{ width:14px; height:14px; }
+      .app-title{ font-size:16px; font-weight:700; }
+
+      /* Skills */
+      #app-skills{ background:#F8F6FD; color:var(--ink); }
+      .nav-row{ display:flex; gap:22px; padding:14px 20px 20px 20px; overflow-x:auto; }
+      .nav-item{ display:flex; flex-direction:column; align-items:center; gap:7px; flex:none; opacity:.6; }
+      .nav-item.active{ opacity:1; }
+      .nav-circle{ width:40px;height:40px;border-radius:50%; background:#fff; box-shadow:0 4px 10px rgba(20,15,40,0.07); display:flex;align-items:center;justify-content:center; }
+      .nav-item.active .nav-circle{ background:var(--skills-2); color:#fff; box-shadow:0 6px 14px rgba(58,28,113,0.28); }
+      .nav-item span{ font-size:11px; font-weight:600; color:var(--ink-soft); }
+      .editorial-card{ margin:6px 20px 20px 20px; padding:26px 22px; border-radius:26px; background:linear-gradient(135deg,var(--skills-1),var(--skills-2)); color:#fff; box-shadow:0 16px 30px rgba(58,28,113,0.24); }
+      .editorial-eyebrow{ display:inline-block; font-size:11px; font-weight:600; padding:5px 12px; border-radius:100px; background:rgba(255,255,255,0.18); margin-bottom:16px; }
+      .editorial-card h1{ font-family:Georgia,"Times New Roman",serif; font-weight:400; font-size:26px; line-height:1.35; letter-spacing:.01em; }
+      .tag-cloud{ display:flex; flex-wrap:wrap; gap:9px; padding:4px 20px 30px 20px; }
+      .tag{ font-size:13px; font-weight:600; padding:9px 15px; border-radius:100px; background:#fff; color:var(--ink); box-shadow:0 4px 10px rgba(20,15,40,0.06); }
+      .tag.big{ background:linear-gradient(135deg, var(--skills-1), var(--skills-2)); color:#fff; }
+
+      /* Education */
+      #app-education{ background:#F4F6FB; color:var(--ink); }
+      .edu-greeting{ padding:64px 20px 14px 20px; }
+      .edu-greeting .small{ font-size:12.5px; color:var(--ink-soft); font-weight:600; }
+      .edu-greeting h1{ font-size:24px; font-weight:700; margin-top:2px; }
+      .diploma-card{ margin:6px 20px 18px 20px; border-radius:22px; padding:22px; background:linear-gradient(135deg,var(--edu-1),var(--edu-2)); color:#fff; box-shadow:0 16px 30px rgba(11,61,102,0.28); }
+      .diploma-top{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:26px; }
+      .diploma-top .badge{ font-size:12px; font-weight:700; background:rgba(255,255,255,0.18); padding:5px 10px; border-radius:8px; }
+      .diploma-card h2{ font-size:19px; font-weight:700; }
+      .diploma-card .sub{ font-size:12.5px; opacity:.8; margin-top:2px; }
+      .stat-block{ margin:0 20px 14px 20px; background:#fff; border-radius:18px; padding:16px; box-shadow:0 6px 18px rgba(20,15,40,0.05); }
+      .stat-block .label-row{ display:flex; justify-content:space-between; font-size:13px; font-weight:600; margin-bottom:8px; }
+      .progress-track{ height:8px; border-radius:5px; background:#E7ECF7; overflow:hidden; }
+      .progress-fill{ height:100%; border-radius:5px; background:linear-gradient(90deg,var(--edu-2),var(--edu-glow)); }
+      .row-pair{ display:flex; gap:12px; margin:0 20px 20px 20px; }
+      .mini-stat{ flex:1; background:#fff; border-radius:16px; padding:14px; box-shadow:0 6px 18px rgba(20,15,40,0.05); }
+      .mini-stat .n{ font-size:20px; font-weight:700; }
+      .mini-stat .l{ font-size:11.5px; color:var(--ink-soft); font-weight:600; margin-top:2px; }
+
+      /* Experience */
+      #app-experience{ background:linear-gradient(180deg,#FBEFEF,#F1E7F7 45%,#EDE3F5); color:var(--ink); }
+      .exp-header{ display:flex; justify-content:space-between; align-items:center; padding:64px 20px 6px 20px; }
+      .exp-title{ font-size:16px; font-weight:700; }
+      .exp-cta{ font-size:12px; font-weight:700; background:var(--ink); color:#fff; padding:7px 13px; border-radius:100px; }
+      .segmented{ margin:18px 20px 22px 20px; background:rgba(0,0,0,0.05); border-radius:100px; padding:4px; display:flex; }
+      .segmented span{ flex:1; text-align:center; font-size:12.5px; font-weight:600; padding:8px 0; border-radius:100px; color:var(--ink-soft); }
+      .segmented span.active{ background:#fff; color:var(--ink); box-shadow:0 3px 8px rgba(20,15,40,0.1); }
+      .serif-quote{ font-family:Georgia,"Times New Roman",serif; text-align:center; font-size:20px; line-height:1.5; padding:0 30px 26px 30px; color:#2B2338; }
+      .role-card{ margin:0 20px 12px 20px; background:#fff; border-radius:18px; padding:14px 16px; display:flex; align-items:center; gap:12px; box-shadow:0 6px 16px rgba(40,20,60,0.06); }
+      .role-dot{ width:38px;height:38px;border-radius:12px; flex:none; }
+      .role-info .role-name{ font-size:14px; font-weight:700; }
+      .role-info .role-meta{ font-size:12px; color:var(--ink-soft); margin-top:1px; }
+
+      /* Projects */
+      #app-projects{ background:#F4F5FC; color:var(--ink); }
+      .proj-header{ padding:64px 20px 4px 20px; }
+      .proj-header h1{ font-size:22px; font-weight:700; }
+      .proj-header .sub{ font-size:12.5px; color:var(--ink-soft); margin-top:2px; }
+      .proj-list{ padding:18px 20px 30px 20px; display:flex; flex-direction:column; gap:12px; }
+      .proj-row{ background:#fff; border-radius:18px; padding:14px 16px; display:flex; align-items:center; gap:13px; box-shadow:0 6px 16px rgba(20,15,40,0.06); }
+      .proj-row .p-icon{ width:42px;height:42px;border-radius:13px; flex:none; display:flex; align-items:center; justify-content:center; }
+      .proj-row .p-icon svg{ width:20px;height:20px; }
+      .proj-row .p-name{ font-size:14px; font-weight:700; }
+      .proj-row .p-tag{ font-size:11.5px; color:var(--ink-soft); margin-top:2px; }
+
+      /* Volunteering */
+      #app-volunteering{ background:linear-gradient(160deg,#F3E6F3,#E7D4F0 45%,#D8C2EC); color:var(--ink); }
+
+      /* Recommendations */
+      #app-referrals{ background:#F2FAF6; color:var(--ink); }
+      .ref-greeting{ padding:64px 20px 14px 20px; }
+      .rec-card{ margin:0 20px 12px 20px; background:#fff; border-radius:20px; padding:16px 18px; box-shadow:0 6px 16px rgba(11,90,60,0.07); }
+      .rec-top{ display:flex; align-items:center; gap:11px; margin-bottom:11px; }
+      .rec-avatar{ width:40px; height:40px; border-radius:50%; flex:none; display:flex; align-items:center; justify-content:center; font-size:12.5px; font-weight:700; color:#fff; }
+      .rec-name{ font-size:13.5px; font-weight:700; }
+      .rec-role{ font-size:11.5px; color:var(--ink-soft); margin-top:1px; }
+      .rec-quote{ font-size:13px; line-height:1.55; color:#33333d; font-style:italic; margin-bottom:12px; }
+      .rec-contact{ display:flex; flex-wrap:wrap; gap:7px; }
+      .contact-pill{ font-size:10.5px; font-weight:600; padding:6px 11px; border-radius:100px; background:#F1F6F3; color:#0B5E4C; }
+
+      /* Languages */
+      #app-languages{ background:#FFF8EE; color:var(--ink); }
+      #app-languages .nav-item.active .nav-circle{ background:var(--lang-2); box-shadow:0 6px 14px rgba(197,122,18,0.28); }
+      .lang-quote{ font-family:Georgia,"Times New Roman",serif; text-align:center; font-size:20px; line-height:1.5; padding:20px 30px 24px 30px; color:#2B2338; }
+      .fluency-row{ margin:0 20px 12px 20px; background:#fff; border-radius:16px; padding:14px 16px; box-shadow:0 6px 16px rgba(20,15,40,0.06); }
+      .fluency-top{ display:flex; justify-content:space-between; font-size:13px; font-weight:700; margin-bottom:8px; color:var(--ink); }
+      .fluency-top span.level{ font-weight:500; color:var(--ink-soft); }
+      .fluency-track{ height:7px; border-radius:5px; background:#F1EADD; overflow:hidden; }
+      .fluency-fill{ height:100%; border-radius:5px; background:linear-gradient(90deg,var(--lang-1),var(--lang-2)); }
+
+      /* Chatbot */
+      #app-chatbot{
+        background:
+          radial-gradient(120% 100% at 0% 0%, #F4E9FB 0%, transparent 55%),
+          radial-gradient(120% 100% at 100% 100%, #C9D3F8 0%, transparent 60%),
+          linear-gradient(135deg, var(--chat-1), var(--chat-2) 55%, var(--chat-3));
+        color:#211F3A;
+      }
+      .chat-shell{ display:flex; flex-direction:column; min-height:100%; }
+      .bot-avatar{ width:26px; height:26px; border-radius:50%; background:rgba(255,255,255,0.6); display:flex; align-items:center; justify-content:center; }
+      .chat-messages{ flex:1; padding:10px 18px 20px 18px; display:flex; flex-direction:column; gap:10px; }
+      .msg{ max-width:78%; padding:11px 14px; border-radius:16px; font-size:13.5px; line-height:1.45; }
+      .msg.bot{ align-self:flex-start; background:rgba(255,255,255,0.6); color:#211F3A; border-bottom-left-radius:4px; }
+      .msg.user{ align-self:flex-end; background:#211F3A; color:#fff; border-bottom-right-radius:4px; font-weight:500; }
+      .chat-input-bar{ display:flex; align-items:center; gap:10px; padding:12px 16px 24px 16px; }
+      .chat-input{ flex:1; background:rgba(255,255,255,0.55); color:#4B4470; font-size:13px; padding:12px 16px; border-radius:100px; }
+      .send-btn{ width:36px; height:36px; border-radius:50%; background:#211F3A; color:#fff; display:flex; align-items:center; justify-content:center; flex:none; }
+
+      /* Quick Match */
+      #app-game{ background:#FDF6FB; color:var(--ink); }
+      .game-shell{ padding:8px 20px 30px 20px; }
+      .game-progress{ display:flex; gap:6px; margin-bottom:20px; }
+      .game-progress .dot{ flex:1; height:5px; border-radius:3px; background:#EFE2EC; }
+      .game-progress .dot.active{ background:var(--game-2); }
+      .game-card{ background:linear-gradient(135deg,var(--game-1),var(--game-2)); color:#fff; border-radius:24px; padding:24px 20px; margin-bottom:18px; min-height:280px; box-shadow:0 16px 30px rgba(194,30,146,0.24); }
+      .game-eyebrow{ font-size:11px; font-weight:700; letter-spacing:.08em; color:rgba(255,255,255,0.7); margin-bottom:10px; }
+      .game-card h1{ font-size:19px; font-weight:700; line-height:1.4; margin-bottom:20px; }
+      .game-options{ display:flex; flex-direction:column; gap:10px; }
+      .game-option{ background:rgba(255,255,255,0.92); color:var(--ink); border:none; padding:13px 16px; border-radius:14px; font-size:14px; font-weight:600; cursor:pointer; }
+      .game-option.correct{ background:#2ED47A; color:#04351C; }
+      .game-option.incorrect{ background:#FF5D6C; color:#3B0006; }
+      .game-score{ text-align:center; font-size:13px; font-weight:600; color:var(--ink-soft); }
+      .game-cta{ display:inline-block; background:#fff; color:var(--game-2); font-weight:700; font-size:14px; padding:12px 22px; border-radius:100px; cursor:pointer; }
+
+      /* Meet Lara */
+      #app-meet{ background:#F5F8FF; color:var(--ink); }
+      .meet-profile{ display:flex; align-items:center; gap:12px; padding:14px 20px 18px 20px; }
+      .meet-avatar{ width:46px; height:46px; border-radius:50%; flex:none; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:16px; background:linear-gradient(135deg,#4285F4,#34A853); }
+      .meet-name{ font-size:14.5px; font-weight:700; }
+      .meet-sub{ font-size:12px; color:var(--ink-soft); margin-top:1px; }
+      .meet-headline{ padding:0 20px 20px 20px; font-size:21px; font-weight:700; line-height:1.32; }
+      .meet-section-label{ padding:0 20px 10px 20px; font-size:11.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-soft); }
+      .date-row{ display:flex; gap:10px; padding:0 20px 22px 20px; overflow-x:auto; }
+      .date-chip{ flex:none; width:52px; text-align:center; padding:11px 0; border-radius:14px; background:#fff; box-shadow:0 4px 10px rgba(20,15,40,0.06); cursor:pointer; }
+      .date-chip.active{ background:linear-gradient(135deg,#4285F4,#34A853); color:#fff; }
+      .date-chip .d-num{ font-size:15px; font-weight:700; }
+      .date-chip .d-day{ font-size:10px; opacity:.7; margin-top:1px; }
+      .time-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; padding:0 20px 26px 20px; }
+      .time-pill{ text-align:center; padding:11px 0; border-radius:12px; background:#fff; font-size:12.5px; font-weight:600; box-shadow:0 4px 10px rgba(20,15,40,0.06); cursor:pointer; }
+      .time-pill.active{ background:linear-gradient(135deg,#4285F4,#34A853); color:#fff; }
+      .meet-cta{ margin:6px 20px 30px 20px; text-align:center; background:linear-gradient(135deg,#4285F4,#34A853); color:#fff; font-weight:700; font-size:14.5px; padding:15px; border-radius:100px; cursor:pointer; }
+    </style>
+
+    <!-- Skills -->
+    <div class="app-page" id="app-skills">
+      <div class="app-header">
+        <div class="back-btn on-light" onclick="closeApp('app-skills')"><svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="app-title">Skills</span><div style="width:32px"></div>
+      </div>
+      <div class="nav-row">
+        <div class="nav-item active"><div class="nav-circle">✦</div><span>All</span></div>
+        <div class="nav-item"><div class="nav-circle">◧</div><span>Design</span></div>
+        <div class="nav-item"><div class="nav-circle">⌘</div><span>Code</span></div>
+        <div class="nav-item"><div class="nav-circle">◔</div><span>Product</span></div>
+        <div class="nav-item"><div class="nav-circle">▤</div><span>Data</span></div>
+        <div class="nav-item"><div class="nav-circle">✎</div><span>Writing</span></div>
+      </div>
+      <div class="editorial-card">
+        <span class="editorial-eyebrow">24 SKILLS · 6 DISCIPLINES</span>
+        <h1>Fluent in the tools that turn ideas into shipped work.</h1>
+      </div>
+      <div class="tag-cloud">
+        <span class="tag big">Product Design</span><span class="tag">Figma</span><span class="tag">React</span>
+        <span class="tag">TypeScript</span><span class="tag big">Leadership</span><span class="tag">SQL</span>
+        <span class="tag">User Research</span><span class="tag">Copywriting</span><span class="tag">Prototyping</span>
+        <span class="tag">Swift</span><span class="tag big">Systems Thinking</span>
+      </div>
+    </div>
+
+    <!-- Education -->
+    <div class="app-page" id="app-education">
+      <div class="edu-greeting">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div><div class="small">Education</div><h1>Your academic record</h1></div>
+          <div class="back-btn on-light" onclick="closeApp('app-education')"><svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+      <div class="diploma-card">
+        <div class="diploma-top">
+          <div><h2>Stanford University</h2><div class="sub">B.S. Computer Science · 2018–2022</div></div>
+          <span class="badge">Honors</span>
+        </div>
+        <div class="sub">Minor in Design · Dean's List x4</div>
+      </div>
+      <div class="stat-block">
+        <div class="label-row"><span>Credits completed</span><span>128 / 128</span></div>
+        <div class="progress-track"><div class="progress-fill" style="width:100%"></div></div>
+      </div>
+      <div class="row-pair">
+        <div class="mini-stat"><div class="n">3.9</div><div class="l">GPA</div></div>
+        <div class="mini-stat"><div class="n">6</div><div class="l">Honors & Awards</div></div>
+      </div>
+      <div class="row-pair">
+        <div class="mini-stat"><div class="n">14</div><div class="l">Courses w/ Distinction</div></div>
+        <div class="mini-stat"><div class="n">2</div><div class="l">Degrees</div></div>
+      </div>
+    </div>
+
+    <!-- Experience -->
+    <div class="app-page" id="app-experience">
+      <div class="exp-header">
+        <div class="back-btn on-light" onclick="closeApp('app-experience')"><svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="exp-title">Experience</span><span class="exp-cta">See résumé</span>
+      </div>
+      <div class="segmented"><span class="active">Current</span><span>Past</span><span>All</span></div>
+      <div class="serif-quote">"Six roles, one continuous craft — building products people actually use."</div>
+      <div class="role-card">
+        <div class="role-dot" style="background:linear-gradient(135deg,var(--exp-1),var(--exp-2))"></div>
+        <div class="role-info"><div class="role-name">Senior Product Designer</div><div class="role-meta">Anthropic · 2023–Present</div></div>
+      </div>
+      <div class="role-card">
+        <div class="role-dot" style="background:linear-gradient(135deg,#3D5CFF,#8FA6FF)"></div>
+        <div class="role-info"><div class="role-name">Product Designer</div><div class="role-meta">Figma · 2021–2023</div></div>
+      </div>
+      <div class="role-card">
+        <div class="role-dot" style="background:linear-gradient(135deg,#0FA36B,#5CF2C1)"></div>
+        <div class="role-info"><div class="role-name">UX Intern</div><div class="role-meta">Apple · Summer 2020</div></div>
+      </div>
+    </div>
+
+    <!-- Projects -->
+    <div class="app-page" id="app-projects">
+      <div class="app-header">
+        <div class="back-btn on-light" onclick="closeApp('app-projects')"><svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="app-title">Projects</span><div style="width:32px"></div>
+      </div>
+      <div class="proj-header"><h1>4 shipped</h1><div class="sub">Selected work, 2021–2026</div></div>
+      <div class="proj-list">
+        <div class="proj-row">
+          <div class="p-icon" style="background:var(--p1-accent)"><svg viewBox="0 0 100 100"><rect fill="#fff" opacity=".55" x="26" y="44" width="42" height="28" rx="5"/><rect fill="#fff" opacity=".78" x="21" y="35" width="42" height="28" rx="5"/><rect fill="#fff" x="16" y="26" width="42" height="28" rx="5"/></svg></div>
+          <div><div class="p-name">Portfolio OS</div><div class="p-tag">iOS · Design system</div></div>
+        </div>
+        <div class="proj-row">
+          <div class="p-icon" style="background:var(--p2-accent)"><svg viewBox="0 0 100 100"><rect x="26" y="18" width="48" height="64" rx="11" fill="none" stroke="#fff" stroke-width="7.5"/><rect x="40" y="35" width="20" height="16" rx="4" fill="#fff"/></svg></div>
+          <div><div class="p-name">Popcorn eSIM</div><div class="p-tag">Mobile · Fintech</div></div>
+        </div>
+        <div class="proj-row">
+          <div class="p-icon" style="background:var(--p3-accent)"><svg viewBox="0 0 100 100"><path fill="#fff" d="M50 32c-9-7-22-9-32-6v46c10-3 23-1 32 6 9-7 22-9 32-6V26c-10-3-23-1-32 6Z"/></svg></div>
+          <div><div class="p-name">Trove Journal</div><div class="p-tag">Wellness app</div></div>
+        </div>
+        <div class="proj-row">
+          <div class="p-icon" style="background:var(--p4-accent)"><svg viewBox="0 0 100 100"><circle cx="38" cy="50" r="19" fill="none" stroke="#fff" stroke-width="9"/><circle cx="64" cy="50" r="19" fill="none" stroke="#fff" stroke-width="9"/></svg></div>
+          <div><div class="p-name">Connect</div><div class="p-tag">Concept · Telecom</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Volunteering -->
+    <div class="app-page" id="app-volunteering">
+      <div class="exp-header">
+        <div class="back-btn on-light" onclick="closeApp('app-volunteering')"><svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="exp-title">Volunteering</span>
+        <span class="exp-cta" style="background:linear-gradient(135deg,var(--vol-1),var(--vol-2))">See causes</span>
+      </div>
+      <div class="segmented"><span class="active">Ongoing</span><span>Past</span><span>All</span></div>
+      <div class="serif-quote">"Six causes and counting — showing up for the community beyond the day job."</div>
+      <div class="role-card">
+        <div class="role-dot" style="background:linear-gradient(135deg,var(--vol-1),var(--vol-2))"></div>
+        <div class="role-info"><div class="role-name">Code for Good</div><div class="role-meta">Volunteer Mentor · 2023–Present</div></div>
+      </div>
+      <div class="role-card">
+        <div class="role-dot" style="background:linear-gradient(135deg,#E1336B,#FF9BB8)"></div>
+        <div class="role-info"><div class="role-name">Habitat for Humanity</div><div class="role-meta">Build Volunteer · 2022</div></div>
+      </div>
+      <div class="role-card">
+        <div class="role-dot" style="background:linear-gradient(135deg,#C2410C,#FF7A59)"></div>
+        <div class="role-info"><div class="role-name">Local Food Bank</div><div class="role-meta">Weekly Volunteer · 2021–Present</div></div>
+      </div>
+    </div>
+
+    <!-- Recommendations -->
+    <div class="app-page" id="app-referrals">
+      <div class="ref-greeting">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div><div class="small">Recommendations</div><h1 style="font-size:24px;font-weight:700;margin-top:2px;">What people say</h1></div>
+          <div class="back-btn on-light" onclick="closeApp('app-referrals')"><svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-top"><div class="rec-avatar" style="background:linear-gradient(135deg,var(--ref-1),var(--ref-2))">SC</div><div><div class="rec-name">Sarah Chen</div><div class="rec-role">Engineering Lead, Anthropic</div></div></div>
+        <div class="rec-quote">"Alex is the rare designer who thinks in systems and still sweats the pixel-level details. I'd work with them again in a heartbeat."</div>
+        <div class="rec-contact"><span class="contact-pill">sarah.chen@anthropic.com</span><span class="contact-pill">LinkedIn</span></div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-top"><div class="rec-avatar" style="background:linear-gradient(135deg,#0FA36B,#5CF2C1)">MW</div><div><div class="rec-name">Marcus Webb</div><div class="rec-role">Product Director, Figma</div></div></div>
+        <div class="rec-quote">"One of the most collaborative partners I've had on a product team — every handoff was painless, every review was sharp."</div>
+        <div class="rec-contact"><span class="contact-pill">marcus@figma.com</span><span class="contact-pill">+1 (415) 555‑0132</span></div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-top"><div class="rec-avatar" style="background:linear-gradient(135deg,#C2410C,#FF7A59)">PN</div><div><div class="rec-name">Priya Nair</div><div class="rec-role">Former Manager, Apple</div></div></div>
+        <div class="rec-quote">"Alex's attention to detail raised the bar for our entire team's output. A genuine craftsperson."</div>
+        <div class="rec-contact"><span class="contact-pill">priya.nair@icloud.com</span><span class="contact-pill">LinkedIn</span></div>
+      </div>
+    </div>
+
+    <!-- Languages -->
+    <div class="app-page" id="app-languages">
+      <div class="app-header">
+        <div class="back-btn on-light" onclick="closeApp('app-languages')"><svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="app-title">Languages</span><div style="width:32px"></div>
+      </div>
+      <div class="nav-row">
+        <div class="nav-item active"><div class="nav-circle">EN</div><span>English</span></div>
+        <div class="nav-item"><div class="nav-circle">ES</div><span>Spanish</span></div>
+        <div class="nav-item"><div class="nav-circle">FR</div><span>French</span></div>
+        <div class="nav-item"><div class="nav-circle">JP</div><span>Japanese</span></div>
+      </div>
+      <div class="lang-quote">"How many ways can you say hello?"</div>
+      <div class="fluency-row"><div class="fluency-top"><span>English</span><span class="level">Native</span></div><div class="fluency-track"><div class="fluency-fill" style="width:100%"></div></div></div>
+      <div class="fluency-row"><div class="fluency-top"><span>Spanish</span><span class="level">Fluent</span></div><div class="fluency-track"><div class="fluency-fill" style="width:82%"></div></div></div>
+      <div class="fluency-row"><div class="fluency-top"><span>French</span><span class="level">Conversational</span></div><div class="fluency-track"><div class="fluency-fill" style="width:55%"></div></div></div>
+      <div class="fluency-row"><div class="fluency-top"><span>Japanese</span><span class="level">Beginner</span></div><div class="fluency-track"><div class="fluency-fill" style="width:25%"></div></div></div>
+    </div>
+
+    <!-- Chatbot -->
+    <div class="app-page" id="app-chatbot">
+      <div class="chat-shell">
+        <div class="app-header">
+          <div class="back-btn on-light" onclick="closeApp('app-chatbot')"><svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div class="bot-avatar"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M4 5.5C4 4.67 4.67 4 5.5 4h13c.83 0 1.5.67 1.5 1.5v9c0 .83-.67 1.5-1.5 1.5H10l-4.2 3.3c-.53.42-1.3.04-1.3-.63V15.9c-.28-.24-.5-.6-.5-1V5.5Z" fill="#211F3A"/></svg></div>
+            <span class="app-title">Portfolio Assistant</span>
+          </div>
+          <div style="width:32px"></div>
+        </div>
+        <div class="chat-messages">
+          <div class="msg bot">Hi! I'm Alex's portfolio assistant. Ask me about skills, projects, or experience.</div>
+          <div class="msg user">What's Alex's strongest area?</div>
+          <div class="msg bot">Product design and systems thinking — 6 shipped roles and 4+ years leading design at scale.</div>
+          <div class="msg user">Any projects worth checking out?</div>
+          <div class="msg bot">Portfolio OS and Connect, both in the Projects app — end-to-end design systems work.</div>
+        </div>
+        <div class="chat-input-bar">
+          <div class="chat-input">Ask a question…</div>
+          <div class="send-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Match -->
+    <div class="app-page" id="app-game">
+      <div class="app-header">
+        <div class="back-btn on-light" onclick="closeApp('app-game')"><svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="app-title">Quick Match</span><div style="width:32px"></div>
+      </div>
+      <div class="game-shell">
+        <div class="game-progress" id="gameProgress">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        </div>
+        <div class="game-card" id="gameCard"></div>
+        <div class="game-score">Score: <span id="scoreText">0</span> / 5</div>
+      </div>
+    </div>
+
+    <!-- Meet Lara -->
+    <div class="app-page" id="app-meet">
+      <div class="app-header">
+        <div class="back-btn on-light" onclick="closeApp('app-meet')"><svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="app-title">Meet</span><div style="width:32px"></div>
+      </div>
+      <div class="meet-profile">
+        <div class="meet-avatar">L</div>
+        <div><div class="meet-name">Lara Nguyen</div><div class="meet-sub">Recruiting Partner · 30 min video call</div></div>
+      </div>
+      <div class="meet-headline">Book a meeting with Lara</div>
+      <div class="meet-section-label">Select a date</div>
+      <div class="date-row">
+        <div class="date-chip"><div class="d-num">24</div><div class="d-day">Fri</div></div>
+        <div class="date-chip active"><div class="d-num">27</div><div class="d-day">Mon</div></div>
+        <div class="date-chip"><div class="d-num">28</div><div class="d-day">Tue</div></div>
+        <div class="date-chip"><div class="d-num">29</div><div class="d-day">Wed</div></div>
+        <div class="date-chip"><div class="d-num">30</div><div class="d-day">Thu</div></div>
+        <div class="date-chip"><div class="d-num">31</div><div class="d-day">Fri</div></div>
+      </div>
+      <div class="meet-section-label">Available times</div>
+      <div class="time-grid">
+        <div class="time-pill">9:00 AM</div><div class="time-pill active">9:30 AM</div><div class="time-pill">10:00 AM</div>
+        <div class="time-pill">11:00 AM</div><div class="time-pill">1:30 PM</div><div class="time-pill">2:00 PM</div>
+      </div>
+      <div class="meet-cta">Confirm booking</div>
+    </div>
+
+    <!-- Summary -->
+    <div class="app-page" id="app-summary">
+      <div class="app-header">
+        <div class="back-btn on-light" onclick="closeApp('app-summary')"><svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="app-title">Summary</span><div style="width:32px"></div>
+      </div>
+      <div class="section-label" style="margin-top:6px;">About me</div>
+      <div class="fact-stack compact" id="summaryStack">
+        <div class="fact-card mini" data-i="0" style="background:var(--skills-2)">
+          <div class="fact-eyebrow">Track record</div>
+          <div class="fact-body">Delivered 10+ client projects</div>
+          <div class="fact-arrow" onclick="event.stopPropagation(); advanceSummary();"><svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="fact-card mini" data-i="1" style="background:var(--edu-2)">
+          <div class="fact-eyebrow">Started early</div>
+          <div class="fact-body">Freelancing since I was 16</div>
+          <div class="fact-arrow" onclick="event.stopPropagation(); advanceSummary();"><svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="fact-card mini" data-i="2" style="background:var(--exp-2)">
+          <div class="fact-eyebrow">0 → 1</div>
+          <div class="fact-body">Shipped 4 products from scratch</div>
+          <div class="fact-arrow" onclick="event.stopPropagation(); advanceSummary();"><svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="fact-card mini" data-i="3" style="background:var(--proj-2)">
+          <div class="fact-eyebrow">Leadership</div>
+          <div class="fact-body">Led design across 3 companies</div>
+          <div class="fact-arrow" onclick="event.stopPropagation(); advanceSummary();"><svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="fact-card mini" data-i="4" style="background:var(--vol-2)">
+          <div class="fact-eyebrow">Giving back</div>
+          <div class="fact-body">150+ hours volunteered</div>
+          <div class="fact-arrow" onclick="event.stopPropagation(); advanceSummary();"><svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+      <div class="info-row"><div class="i-label">Title</div><div class="i-value">Senior Product Designer</div></div>
+      <div class="info-row"><div class="i-label">Location</div><div class="i-value">San Francisco, CA</div></div>
+      <div class="info-row"><div class="i-label">Experience</div><div class="i-value">4+ years</div></div>
+      <div class="info-row"><div class="i-label">Focus</div><div class="i-value">Design systems, 0→1 product, leadership</div></div>
+    </div>
+
+    <!-- Leadership -->
+    <div class="app-page" id="app-leadership">
+      <div class="exp-header">
+        <div class="back-btn on-light" onclick="closeApp('app-leadership')"><svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="exp-title">Leadership</span><div style="width:32px"></div>
+      </div>
+      <div class="serif-quote">"Growing the people around me is the work I'm proudest of."</div>
+      <div class="role-card">
+        <div class="role-dot" style="background:linear-gradient(135deg,var(--vol-1),var(--vol-2))"></div>
+        <div class="role-info"><div class="role-name">Design Team Lead</div><div class="role-meta">Anthropic · 4 direct reports</div></div>
+      </div>
+      <div class="role-card">
+        <div class="role-dot" style="background:linear-gradient(135deg,#0FA36B,#5CF2C1)"></div>
+        <div class="role-info"><div class="role-name">Mentor, Code for Good</div><div class="role-meta">6 mentees since 2023</div></div>
+      </div>
+      <div class="role-card">
+        <div class="role-dot" style="background:linear-gradient(135deg,#3D5CFF,#8FA6FF)"></div>
+        <div class="role-info"><div class="role-name">Design Guild Founder</div><div class="role-meta">Figma · Grew to 40 members</div></div>
+      </div>
+    </div>
+
+    <!-- Certifications -->
+    <div class="app-page" id="app-certifications">
+      <div class="app-header">
+        <div class="back-btn on-light" onclick="closeApp('app-certifications')"><svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="app-title">Certifications</span><div style="width:32px"></div>
+      </div>
+      <div class="editorial-card">
+        <span class="editorial-eyebrow">3 CERTIFICATIONS</span>
+        <h1>Credentials that back up the craft.</h1>
+      </div>
+      <div class="info-row"><div class="i-label">2024</div><div class="i-value">Certified Scrum Product Owner</div></div>
+      <div class="info-row"><div class="i-label">2023</div><div class="i-value">Google UX Design Certificate</div></div>
+      <div class="info-row"><div class="i-label">2022</div><div class="i-value">Nielsen Norman UX Certification</div></div>
+    </div>
+
+    <!-- Awards -->
+    <div class="app-page" id="app-awards">
+      <div class="app-header">
+        <div class="back-btn on-light" onclick="closeApp('app-awards')"><svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="app-title">Awards</span><div style="width:32px"></div>
+      </div>
+      <div class="editorial-card">
+        <span class="editorial-eyebrow">4 AWARDS</span>
+        <h1>Recognition along the way.</h1>
+      </div>
+      <div class="info-row"><div class="i-label">2025</div><div class="i-value">Anthropic Design Excellence Award</div></div>
+      <div class="info-row"><div class="i-label">2023</div><div class="i-value">Figma Community Spotlight</div></div>
+      <div class="info-row"><div class="i-label">2022</div><div class="i-value">Apple WWDC Student Scholarship</div></div>
+      <div class="info-row"><div class="i-label">2021</div><div class="i-value">Stanford Design Thesis Honors</div></div>
+    </div>
+
+    <!-- Contact -->
+    <div class="app-page" id="app-contact">
+      <div class="app-header">
+        <div class="back-btn on-light" onclick="closeApp('app-contact')"><svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="app-title">Contact</span><div style="width:32px"></div>
+      </div>
+      <div class="editorial-card">
+        <span class="editorial-eyebrow">LET'S TALK</span>
+        <h1>Reach out any way that's easiest.</h1>
+      </div>
+      <div class="info-row"><div class="i-label">Email</div><div class="i-value">alex.morgan@email.com</div></div>
+      <div class="info-row"><div class="i-label">Phone</div><div class="i-value">+1 (415) 555‑0148</div></div>
+      <div class="info-row"><div class="i-label">LinkedIn</div><div class="i-value">/in/alexmorgan</div></div>
+      <div class="meeting-cta-btn" style="margin:20px;" onclick="openApp('app-meet')">📅 Book a Meeting with Lara!</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function openApp(id){ document.getElementById(id).classList.add('active'); }
+  function closeApp(id){ document.getElementById(id).classList.remove('active'); }
+
+  // ---- Language toggle (EN / AR) ----
+  let arabicActive = false;
+  function toggleLang(){
+    arabicActive = !arabicActive;
+    document.querySelectorAll('[data-en]').forEach(el=>{
+      el.textContent = arabicActive ? el.getAttribute('data-ar') : el.getAttribute('data-en');
+    });
+    const contentEl = document.querySelector('.content');
+    contentEl.setAttribute('dir', arabicActive ? 'rtl' : 'ltr');
+    contentEl.classList.toggle('rtl-mode', arabicActive);
+    document.querySelector('.lt-en').classList.toggle('active', !arabicActive);
+    document.querySelector('.lt-ar').classList.toggle('active', arabicActive);
+  }
+
+  // ---- Reusable stacked-card interaction (used by Fun Facts + Summary) ----
+  function createCardStack(containerId, mode){
+    const el = document.getElementById(containerId);
+    const cards = Array.from(el.querySelectorAll('.fact-card'));
+    let order = cards.map((_,i)=>i);
+
+    function layout(){
+      order.forEach((cardIndex, pos)=>{
+        const c = cards[cardIndex];
+        if(mode === 'left'){
+          // horizontal peek: back cards show a color sliver on the left, active card fills the rest on the right
+          if(pos===0){ c.style.left='auto'; c.style.right='0'; c.style.width='calc(100% - 32px)'; c.style.transform='none'; c.style.opacity=1; c.style.zIndex=12; c.style.pointerEvents='auto'; }
+          else if(pos===1){ c.style.left='auto'; c.style.right='0'; c.style.width='calc(100% - 16px)'; c.style.transform='none'; c.style.opacity=1; c.style.zIndex=11; c.style.pointerEvents='none'; }
+          else if(pos===2){ c.style.left='auto'; c.style.right='0'; c.style.width='100%'; c.style.transform='none'; c.style.opacity=1; c.style.zIndex=10; c.style.pointerEvents='none'; }
+          else{ c.style.left='auto'; c.style.right='0'; c.style.width='100%'; c.style.transform='none'; c.style.opacity=0; c.style.zIndex=1; c.style.pointerEvents='none'; }
+        } else if(mode === 'peek'){
+          // label-strip peek stack, capped at 3 cards visible (front + 2 peeking headers)
+          if(pos===0){ c.style.transform='translateY(0)'; c.style.opacity=1; c.style.zIndex=12; c.style.pointerEvents='auto'; }
+          else if(pos===1){ c.style.transform='translateY(-32px)'; c.style.opacity=1; c.style.zIndex=11; c.style.pointerEvents='none'; }
+          else if(pos===2){ c.style.transform='translateY(-60px)'; c.style.opacity=1; c.style.zIndex=10; c.style.pointerEvents='none'; }
+          else{ c.style.transform='translateY(-60px)'; c.style.opacity=0; c.style.zIndex=1; c.style.pointerEvents='none'; }
+        } else if(mode === 'fan'){
+          // neat one-directional fan, used by Summary
+          if(pos===0){ c.style.transform='translate(0,0) rotate(0deg) scale(1)'; c.style.opacity=1; c.style.zIndex=10; c.style.pointerEvents='auto'; }
+          else if(pos===1){ c.style.transform='translate(10px,8px) rotate(4deg) scale(0.96)'; c.style.opacity=1; c.style.zIndex=9; c.style.pointerEvents='none'; }
+          else if(pos===2){ c.style.transform='translate(20px,16px) rotate(8deg) scale(0.92)'; c.style.opacity=1; c.style.zIndex=8; c.style.pointerEvents='none'; }
+          else if(pos===3){ c.style.transform='translate(29px,23px) rotate(12deg) scale(0.88)'; c.style.opacity=0.9; c.style.zIndex=7; c.style.pointerEvents='none'; }
+          else{ c.style.transform='translate(36px,28px) rotate(15deg) scale(0.85)'; c.style.opacity=0; c.style.zIndex=6; c.style.pointerEvents='none'; }
+        } else {
+          // classic straight stack, used by Fun Facts (unchanged)
+          if(pos===0){ c.style.transform='translateY(0) scale(1)'; c.style.opacity=1; c.style.zIndex=10; c.style.pointerEvents='auto'; }
+          else if(pos===1){ c.style.transform='translateY(10px) scale(0.96)'; c.style.opacity=0.9; c.style.zIndex=9; c.style.pointerEvents='none'; }
+          else if(pos===2){ c.style.transform='translateY(18px) scale(0.92)'; c.style.opacity=0.7; c.style.zIndex=8; c.style.pointerEvents='none'; }
+          else{ c.style.transform='translateY(24px) scale(0.88)'; c.style.opacity=0; c.style.zIndex=(7-pos); c.style.pointerEvents='none'; }
+        }
+      });
+    }
+    function advance(){ order.push(order.shift()); layout(); }
+    layout();
+
+    let touchStartX = 0, lastSwipe = 0;
+    el.addEventListener('touchstart', e=>{ touchStartX = e.touches[0].clientX; });
+    el.addEventListener('touchend', e=>{
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if(Math.abs(dx) > 40){ advance(); lastSwipe = Date.now(); }
+    });
+    el.addEventListener('click', ()=>{
+      if(Date.now() - lastSwipe > 300) advance();
+    });
+    return advance;
+  }
+
+  const advanceFacts = createCardStack('factStack', 'left');
+  const advanceSummary = createCardStack('summaryStack', 'peek');
+
+  // ---- Fade-in on scroll ----
+  const scrollRoot = document.querySelector('.content');
+  const fadeObserver = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{ if(entry.isIntersecting) entry.target.classList.add('in-view'); });
+  }, { root: scrollRoot, threshold:0.15 });
+  document.querySelectorAll('.fade-in').forEach(el=> fadeObserver.observe(el));
+
+  document.querySelectorAll('.date-chip').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      document.querySelectorAll('.date-chip').forEach(d=>d.classList.remove('active'));
+      el.classList.add('active');
+    });
+  });
+  document.querySelectorAll('.time-pill').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      document.querySelectorAll('.time-pill').forEach(t=>t.classList.remove('active'));
+      el.classList.add('active');
+    });
+  });
+
+  const questions = [
+    { q:"Which tool does Alex reach for first when designing?", options:["Figma","Excel","Photoshop 5","MS Paint"], correct:0 },
+    { q:"How many projects has Alex shipped?", options:["3","7","4","20"], correct:2 },
+    { q:"Besides English, what's Alex's strongest language?", options:["Spanish","Mandarin","German","Latin"], correct:0 },
+    { q:"Where did Alex intern?", options:["Google","Apple","Netflix","Tesla"], correct:1 },
+    { q:"Roughly how many hours has Alex volunteered?", options:["10","50","150+","500"], correct:2 },
+  ];
+  let gCurrent = 0, gScore = 0, gAnswered = false;
+
+  function renderQuestion(){
+    const item = questions[gCurrent];
+    const card = document.getElementById('gameCard');
+    card.innerHTML = `
+      <div class="game-eyebrow">QUESTION ${gCurrent+1} / ${questions.length}</div>
+      <h1>${item.q}</h1>
+      <div class="game-options">
+        ${item.options.map((opt,i)=>`<div class="game-option" data-i="${i}">${opt}</div>`).join('')}
+      </div>`;
+    card.querySelectorAll('.game-option').forEach(el=>{
+      el.addEventListener('click', ()=> selectAnswer(parseInt(el.dataset.i)));
+    });
+    gAnswered = false;
+    updateDots();
+  }
+  function updateDots(){
+    document.querySelectorAll('#gameProgress .dot').forEach((d,i)=>{ d.classList.toggle('active', i <= gCurrent); });
+  }
+  function selectAnswer(i){
+    if(gAnswered) return;
+    gAnswered = true;
+    const item = questions[gCurrent];
+    document.querySelectorAll('.game-option').forEach((el,idx)=>{
+      if(idx === item.correct) el.classList.add('correct');
+      else if(idx === i) el.classList.add('incorrect');
+    });
+    if(i === item.correct) gScore++;
+    document.getElementById('scoreText').textContent = gScore;
+    setTimeout(()=>{
+      if(gCurrent < questions.length - 1){ gCurrent++; renderQuestion(); }
+      else { showResult(); }
+    }, 700);
+  }
+  function showResult(){
+    const card = document.getElementById('gameCard');
+    const msg = gScore >= 4 ? "You know Alex's work well!" : "Nice try — explore the apps to learn more!";
+    card.innerHTML = `<div class="game-eyebrow">RESULT</div><h1>${gScore} / ${questions.length} — ${msg}</h1><div class="game-cta" id="replayBtn">Play again</div>`;
+    document.getElementById('replayBtn').addEventListener('click', restartGame);
+  }
+  function restartGame(){ gCurrent = 0; gScore = 0; document.getElementById('scoreText').textContent = 0; renderQuestion(); }
+  renderQuestion();
+</script>
+
+</body>
+</html>

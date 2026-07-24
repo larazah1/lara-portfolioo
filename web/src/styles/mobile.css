@@ -1,0 +1,29 @@
+.mobile-shell{
+  position:relative;
+  min-height:100vh;
+  width:100%;
+  overflow-x:hidden;
+}
+
+.mobile-home{
+  padding:calc(env(safe-area-inset-top, 0px) + 22px) 20px calc(env(safe-area-inset-bottom, 0px) + 100px) 20px;
+  max-width:640px;
+  margin:0 auto;
+}
+
+.mobile-page{
+  position:fixed; inset:0;
+  z-index:1000;
+  overflow-y:auto;
+  background:var(--bg-page);
+}
+.mobile-page-inner{
+  padding:calc(env(safe-area-inset-top, 0px) + 22px) 20px calc(env(safe-area-inset-bottom, 0px) + 48px) 20px;
+  max-width:640px;
+  margin:0 auto;
+}
+.mobile-page .app-header{ padding-bottom:14px; }
+
+.mobile-floating-chat{
+  bottom:calc(env(safe-area-inset-bottom, 0px) + 24px);
+}

@@ -1,0 +1,16 @@
+/* Tablet: a bit more breathing room than phone */
+@media (min-width: 600px){
+  .mobile-home,
+  .mobile-page-inner{ max-width:720px; }
+}
+
+/* Small phones */
+@media (max-width: 380px){
+  .chat-widget h2{ font-size:22px; }
+  .greeting h1{ font-size:23px; }
+}
+
+/* Large desktop canvases: give windows a little more room to cascade */
+@media (min-width: 1600px){
+  .window{ width:480px; height:680px; }
+}
