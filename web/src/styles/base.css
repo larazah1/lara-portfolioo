@@ -11,8 +11,11 @@ body{
     radial-gradient(100% 50% at 100% 0%, #ECE6FA 0%, transparent 60%),
     var(--bg-page);
   color:var(--ink);
-  overflow:hidden;
 }
+
+/* The desktop workspace manages its own internal scroll regions and clips
+   itself (see .workspace in window.css) — mobile relies on normal page
+   scroll, so overflow:hidden must not live on body globally. */
 
 svg{ display:block; }
 

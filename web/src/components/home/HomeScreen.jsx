@@ -5,7 +5,7 @@ import * as home from '../../data/home.js';
 import CardStack from './CardStack.jsx';
 import { ChatGlyph, ChevronIcon } from '../icons/Glyphs.jsx';
 
-export default function HomeScreen({ variant = 'desktop' }) {
+export default function HomeScreen({ variant = 'desktop', hideFloatingChat = false }) {
   const { t, lang, toggle } = useLang();
   const openApp = useOpenApp();
 
@@ -87,12 +87,14 @@ export default function HomeScreen({ variant = 'desktop' }) {
         </div>
       </div>
 
-      <div
-        className={`floating-chat${variant === 'mobile' ? ' mobile-floating-chat' : ''}`}
-        onClick={() => openApp('app-chatbot')}
-      >
-        <ChatGlyph fill="#fff" width={22} height={22} />
-      </div>
+      {!hideFloatingChat && (
+        <div
+          className={`floating-chat${variant === 'mobile' ? ' mobile-floating-chat' : ''}`}
+          onClick={() => openApp('app-chatbot')}
+        >
+          <ChatGlyph fill="#fff" width={22} height={22} />
+        </div>
+      )}
     </>
   );
 }
