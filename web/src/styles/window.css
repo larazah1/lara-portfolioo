@@ -8,6 +8,11 @@
   position:absolute; inset:0;
   overflow-y:auto;
   padding:40px clamp(24px, 6vw, 96px) 140px clamp(24px, 6vw, 96px);
+  /* Contains the home screen's own internal z-index values (e.g. the Fun
+     Facts card stack climbs into the teens) so they can never outrank an
+     open window, which is a sibling of this element, not a descendant. */
+  isolation:isolate;
+  z-index:0;
 }
 .workspace-backdrop-inner{
   max-width:1120px;

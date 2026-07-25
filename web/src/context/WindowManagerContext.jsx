@@ -18,6 +18,16 @@ function centeredRect(openCount) {
   return { x, y, w: DEFAULT_W, h: DEFAULT_H };
 }
 
+// A small, out-of-the-way corner rect — used for the chat window's default
+// auto-opened state so it doesn't block the rest of the workspace.
+export function cornerRect(w = 360, h = 480) {
+  const vw = typeof window !== 'undefined' ? window.innerWidth : 1280;
+  const vh = typeof window !== 'undefined' ? window.innerHeight : 800;
+  const x = Math.max(16, vw - w - 24);
+  const y = Math.max(16, vh - h - 112);
+  return { x, y, w, h };
+}
+
 export function WindowManagerProvider({ children }) {
   const [windows, setWindows] = useState([]);
   const zRef = useRef(10);
@@ -37,14 +47,14 @@ export function WindowManagerProvider({ children }) {
     });
   }, [nextZ]);
 
-  const openApp = useCallback((appId) => {
+  const openApp = useCallback((appId, initialRect) => {
     setWindows((prev) => {
       const existing = prev.find((w) => w.appId === appId);
       const z = nextZ();
       if (existing) {
         return prev.map((w) => (w.appId === appId ? { ...w, z, minimized: false } : w));
       }
-      const rect = centeredRect(openCountRef.current);
+      const rect = initialRect || centeredRect(openCountRef.current);
       openCountRef.current += 1;
       return [...prev, {
         appId,
